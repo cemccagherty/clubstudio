@@ -1,1 +1,9 @@
 <h1><%= @project.title %></h1>
+
+<% @posts.each do |post| %>
+  <p><%= link_to post.title, project_post_path(@project, post) %></p>
+<% end %>
+
+<%= link_to "new post", new_project_post_path(@project) %>
+
+<%= link_to "back to projects", projects_path %>
