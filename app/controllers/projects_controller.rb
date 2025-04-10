@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    @posts = Post.where(project: @project)
   end
 
   def index
