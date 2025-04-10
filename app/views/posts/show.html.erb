@@ -1,3 +1,16 @@
-<%= @post.title %>
+<h1><%= @post.title %></h1>
+
+<h3>Comments:</h3>
+<% unless @comments.nil? %>
+  <% @comments.each do |comment| %>
+    <p><%= comment.content %></p>
+    <p> - <%= comment.user.email %></p>
+  <% end %>
+<% end %>
+
+<%= simple_form_for [@post, @comment] do |f| %>
+  <%= f.input :content %>
+  <%= f.button :submit %>
+<% end %>
 
 <%= link_to "back to project", project_path(@post.project) %>
