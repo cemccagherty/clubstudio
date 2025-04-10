@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   resources :projects do
-    resources :posts
+    resources :posts, only: [:new, :create]
   end
 
+  resources :posts do
+    resources :comments, only: [:new, :create]
+  end
 
 end
