@@ -21,6 +21,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post = Post.find(params[:id])
+    @project = @post.project
+    @post.destroy
+    redirect_to project_path(@project), status: :see_other
+  end
+
   private
 
   def post_params

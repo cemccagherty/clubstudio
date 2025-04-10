@@ -4,6 +4,13 @@
   <p><%= link_to post.title, post_path(post) %></p>
 <% end %>
 
-<%= link_to "new post", new_project_post_path(@project) %>
+<%= link_to "New post", new_project_post_path(@project) %>
 
-<%= link_to "back to projects", projects_path %>
+<%= link_to "Delete Project", project_path(@project),
+  data: {
+    turbo_method: :delete,
+    turbo_confirm: "Delete this project and all associated posts and comments?"
+  }
+%>
+
+<%= link_to "Back to projects", projects_path %>
