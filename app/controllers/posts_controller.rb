@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
-    @comments = Comment.where(post: @post)
     @comment = Comment.new
   end
 

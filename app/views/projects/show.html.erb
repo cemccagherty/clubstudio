@@ -17,11 +17,12 @@
     </div>
   </div>
 
-<%= link_to "Delete Project", project_path(@project),
-  data: {
-    turbo_method: :delete,
-    turbo_confirm: "Delete this project and all associated posts and comments?"
-  }
-%>
+  <%= link_to "Delete Project", project_path(@project),
+    data: {
+      turbo_method: :delete,
+      turbo_confirm: "Delete this project and all associated posts and comments?"
+    }
+  %>
 
-<%= link_to "Back to projects", projects_path %>
+  <%= link_to "Back to projects", projects_path %>
+</div>
