@@ -1,9 +1,20 @@
-<h1><%= @project.title %></h1>
+<div class="container">
 
-<% @posts.each do |post| %>
-  <p><%= link_to post.title, post_path(post) %></p>
-<% end %>
+  <h1><%= @project.title %></h1>
+  <p><%= @project.description %></p>
+  <div class="post-cards">
+    <% @posts.each do |post| %>
+      <%= link_to post_path(post) do %>
+        <div class="post-card">
+          <p><%= post.title %></p>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="post-card">
+      <%= link_to "⊹", new_project_post_path(@project) %>
+    </div>
+  </div>
 
-<%= link_to "new post", new_project_post_path(@project) %>
 
-<%= link_to "back to projects", projects_path %>
+  <%= link_to "back to projects", projects_path %>
+</div>

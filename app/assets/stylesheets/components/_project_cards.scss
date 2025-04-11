@@ -1,0 +1,20 @@
+.project-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px
+}
+
+.project-card {
+  display: flex;
+
+  padding: 12px;
+  margin: 24px;
+
+  display: block;
+
+
+  color: #000000 !important;
+  text-decoration: none !important;
+  border-left: 1px solid grey;
+
+}
