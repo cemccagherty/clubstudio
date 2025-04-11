@@ -1,6 +1,19 @@
 <div class="container">
   <h1><%= @post.title %></h1>
 
+  <% @post.media.each do |media| %>
+    <% if media.content_type.starts_with?('image/') %>
+      <%= cl_image_tag media.key, width: 400, height: 300, crop: :fill %>
+    <% elsif media.content_type.starts_with?('video/') %>
+      <%= video_tag url_for(media), width: 400, height: 300, controls: true, autoplay: false %>
+      <!-- playback wasnt working with cl_video_tag -->
+    <% elsif media.content_type.starts_with?('audio/') %>
+      <%= audio_tag url_for(media), controls: true %>
+      <!-- used audio as cloudinary has no audio tag for rails -->
+    <% end %>
+  <% end %>
+
+
   <div class="comment-cards">
     <% unless @comments.nil? %>
       <% @comments.each do |comment| %>
