@@ -7,6 +7,7 @@
       <%= link_to post_path(post) do %>
         <div class="post-card">
           <p><%= post.title %></p>
+          <p><%= post.comments.count %> comments</p>
         </div>
       <% end %>
     <% end %>

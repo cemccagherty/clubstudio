@@ -1,28 +1,35 @@
-<h1><%= @post.title %></h1>
+<div class="container">
+  <h1><%= @post.title %></h1>
 
-<h3>Comments:</h3>
-<% unless @comments.nil? %>
-  <% @comments.each do |comment| %>
-    <p><%= comment.content %></p>
-    <p> - <%= comment.user.email %></p>
-    <%= link_to "Delete_comment", comment_path(comment),
-      data: {
-        turbo_method: :delete,
-        turbo_confirm: "Delete this comment?"
-      }
-    %>
-  <% end %>
-<% end %>
+  <div class="comment-cards">
+    <% unless @comments.nil? %>
+      <% @comments.each do |comment| %>
+        <div class="comment-card">
+          <p><%= comment.content %></p>
+          <p> - <%= comment.user.email %><%= " - original poster" if comment.user== @post.project.user %></p>
+          <p> - <%= comment.created_at %></p>
+          <%= link_to "Delete_comment", comment_path(comment),
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "Delete this comment?"
+            }
+          %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="comment-card">
+      <%= simple_form_for [@post, @comment] do |f| %>
+        <%= f.input :content %>
+        <%= f.button :submit %>
+      <% end %>
+    </div>
+  </div>
 
-<%= simple_form_for [@post, @comment] do |f| %>
-  <%= f.input :content %>
-  <%= f.button :submit %>
-<% end %>
+  <%= link_to "Delete post", post_path(@post),
+    data: {
+      turbo_method: :delete,
+      turbo_confirm: "Delete this post and all associated comments?"
+    } %>
 
-<%= link_to "Delete post", post_path(@post),
-  data: {
-    turbo_method: :delete,
-    turbo_confirm: "Delete this post and all associated comments?"
-  } %>
-
-<%= link_to "Back to project", project_path(@post.project) %>
+  <%= link_to "Back to project", project_path(@post.project) %>
+</div>
