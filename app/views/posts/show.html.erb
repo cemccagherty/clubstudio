@@ -10,18 +10,31 @@
     <% elsif media.content_type.starts_with?('audio/') %>
       <%= audio_tag url_for(media), controls: true %>
       <!-- used audio as cloudinary has no audio tag for rails -->
+    <% else %>
+      <p>Unsupported media type</p>
     <% end %>
   <% end %>
 
 
   <div class="comment-cards">
-    <% unless @comments.nil? %>
-      <% @comments.each do |comment| %>
+    <% unless @post.comments.nil? %>
+      <% @post.comments.each do |comment| %>
         <div class="comment-card">
+          <% comment.media.each do |media| %>
+            <% if media.content_type.starts_with?('image/') %>
+              <%= cl_image_tag media.key, width: 400, height: 300, crop: :fill %>
+            <% elsif media.content_type.starts_with?('video/') %>
+              <%= video_tag url_for(media), width: 400, height: 300, controls: true, autoplay: false %>
+            <% elsif media.content_type.starts_with?('audio/') %>
+              <%= audio_tag url_for(media), controls: true %>
+            <% else %>
+              <p>Unsupported media type</p>
+            <% end %>
+          <% end %>
           <p><%= comment.content %></p>
           <p> - <%= comment.user.email %><%= " - original poster" if comment.user== @post.project.user %></p>
-          <p> - <%= comment.created_at %></p>
-          <%= link_to "Delete_comment", comment_path(comment),
+          <p> - <%= comment.created_at.strftime("%b %e, %Y %l:%M%P") %></p>
+          <%= link_to "Delete", comment_path(comment),
             data: {
               turbo_method: :delete,
               turbo_confirm: "Delete this comment?"
@@ -31,7 +44,8 @@
       <% end %>
     <% end %>
     <div class="comment-card">
-      <%= simple_form_for [@post, @comment] do |f| %>
+      <%= simple_form_for [@post, @comment], html: { multipart: true } do |f| %>
+        <%= f.input :media, as: :file, input_html: { multiple: true }  %>
         <%= f.input :content %>
         <%= f.button :submit %>
       <% end %>

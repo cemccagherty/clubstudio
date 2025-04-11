@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     @comment.post = @post
     if @comment.save
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: "Comment created!"
     else
       render "posts/show", status: :unprocessable_entity
     end
@@ -21,6 +21,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, media: [])
   end
 end
