@@ -1,0 +1,18 @@
+.post-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.post-card {
+  display: flex;
+
+  padding: 12px;
+  margin: 24px;
+
+  display: block;
+
+
+  border-left: 1px solid grey;
+
+}

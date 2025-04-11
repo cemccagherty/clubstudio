@@ -1,9 +1,19 @@
-<h1>Projects</h1>
+<div class="container">
+  <h1>Projects</h1>
 
-<% @projects.each do |project| %>
-  <p><%= link_to project.title, project_path(project) %></p>
-  <p><%= project.description %></p>
-  <p><%= project.user.email %></p>
-<% end %>
+  <div class="project-cards">
+    <% @projects.each do |project| %>
+      <%= link_to project_path(project) do %>
+        <div class = "project-card">
+          <h4><%= project.title %></h4>
+          <p><%= project.description %></p>
+          <p><%= project.posts.length %> posts</p>
+        </div>
+      <% end %>
+    <% end %>
+    <div class = "project-card col-4">
+      <%= link_to "⊹", new_project_path %>
+    </div>
+  </div>
+</div>
 
-<%= link_to "New project", new_project_path %>
