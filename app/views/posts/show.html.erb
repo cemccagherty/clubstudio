@@ -5,6 +5,12 @@
   <% @comments.each do |comment| %>
     <p><%= comment.content %></p>
     <p> - <%= comment.user.email %></p>
+    <%= link_to "Delete_comment", comment_path(comment),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Delete this comment?"
+      }
+    %>
   <% end %>
 <% end %>
 
@@ -13,4 +19,10 @@
   <%= f.button :submit %>
 <% end %>
 
-<%= link_to "back to project", project_path(@post.project) %>
+<%= link_to "Delete post", post_path(@post),
+  data: {
+    turbo_method: :delete,
+    turbo_confirm: "Delete this post and all associated comments?"
+  } %>
+
+<%= link_to "Back to project", project_path(@post.project) %>
