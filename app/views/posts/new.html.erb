@@ -1,6 +1,9 @@
-<%= simple_form_for [@project, @post] do |f| %>
-  <%= f.input :title %>
-  <%= f.button :submit %>
-<% end %>
+<div class="container">
+  <%= simple_form_for [@project, @post] do |f| %>
+    <%= f.input :title %>
+    <%= f.input :media, as: :file %>
+    <%= f.button :submit %>
+  <% end %>
 
-<%= link_to "Back to project", project_path(@project) %>
+  <%= link_to "Back to project", project_path(@project) %>
+</div>
