@@ -28,6 +28,16 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, status: :see_other
   end
 
+  def update
+    @project = Project.find(params[:id])
+    @project.update(project_params)
+    if @project.save
+      redirect_to project_path(@project)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def project_params
